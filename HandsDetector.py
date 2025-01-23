@@ -2,6 +2,8 @@ import cv2
 
 import mediapipe as mp
 
+
+#This line if to capture image with the webcam
 cap = cv2.VideoCapture(0)
 
 mpHands = mp.solutions.hands
@@ -66,3 +68,4 @@ while cap.isOpened():
 cap.release()
 cv2.destroyAllWindows()
 hands.close()
+
