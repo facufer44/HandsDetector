@@ -40,7 +40,7 @@ while cap.isOpened():
                 1, (0, 255, 0), 2)
 
 
-#Code for calculate the distance between two fingers
+#Code for detect if the hand is left or right
     if result.multi_hand_landmarks:
         for idx, hand_landmarks in enumerate(result.multi_hand_landmarks):
             hand_label = result.multi_handedness[idx].classification[0].label
@@ -60,7 +60,9 @@ while cap.isOpened():
         if fingers_folded:
             cv2.putText(frame, 'Hand closed', (10, 150), 
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 2)
-
+        else:
+                cv2.putText(frame, 'Hands open', (10, 100), 
+                            cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 2)
 
     cv2.imshow('Deteccion de manos', frame)
 
