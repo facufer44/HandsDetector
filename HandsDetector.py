@@ -47,7 +47,7 @@ while cap.isOpened():
         cv2.putText(frame, hand_label, label_position, 
                     cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
 
-# this is for
+# this part is for detecting if the hand is closed
     if result.multi_hand_landmarks:
         for hand_landmarks in result.multi_hand_landmarks:
             fingers_folded = True
