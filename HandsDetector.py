@@ -2,7 +2,6 @@ import cv2
 
 import mediapipe as mp
 
-
 #This line if to capture image with the webcam
 cap = cv2.VideoCapture(0)
 
@@ -24,6 +23,8 @@ while cap.isOpened():
     rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     result= hands.process(rgb_frame)
 
+
+#Code for drawing and detecting the fingers
     if result.multi_hand_landmarks:
         for hand_landmarks in result.multi_hand_landmarks:
             mpDraw.draw_landmarks(
@@ -31,6 +32,7 @@ while cap.isOpened():
                 mpHands.HAND_CONNECTIONS
             )
 
+#Code for detecting the number of hands on the screen
     if result.multi_hand_landmarks:
         num_hands = len(result.multi_hand_landmarks)
         cv2.putText(frame, f'Hands detected: {num_hands}', 
@@ -38,7 +40,7 @@ while cap.isOpened():
                 1, (0, 255, 0), 2)
 
 
-
+#Code for calculate the distance between two fingers
     if result.multi_hand_landmarks:
         for idx, hand_landmarks in enumerate(result.multi_hand_landmarks):
             hand_label = result.multi_handedness[idx].classification[0].label
