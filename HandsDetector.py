@@ -53,7 +53,7 @@ while cap.isOpened():
     if result.multi_hand_landmarks:
         for hand_landmarks in result.multi_hand_landmarks:
             fingers_folded = True
-        for tip_id in [8, 12, 16, 20]:  # Puntas de los dedos excepto el pulgar
+        for tip_id in [4, 8, 12, 16, 20]:  # Puntas de los dedos excepto el pulgar
             if hand_landmarks.landmark[tip_id].y < hand_landmarks.landmark[tip_id - 2].y:
                 fingers_folded = False
                 break
@@ -61,8 +61,25 @@ while cap.isOpened():
             cv2.putText(frame, 'Hand closed', (10, 150), 
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 2)
         else:
-                cv2.putText(frame, 'Hands open', (10, 100), 
+                cv2.putText(frame, 'Hand open', (10, 100), 
                             cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 2)
+
+
+
+#Code for detect with the finger what number is showing with the hand
+    def detect_number_hand(hand_landmarks):
+        dedos_extendidos = 0
+        dedos = [4, 8, 12, 16, 20]
+        for tip in dedos:
+            if hand_landmarks.landmark[tip].y < hand_landmarks.landmark[tip - 2].y:
+                dedos_extendidos += 1
+        return dedos_extendidos
+
+    if result.multi_hand_landmarks:
+        for hand_landmarks in result.multi_hand_landmarks:
+            numero = detect_number_hand(hand_landmarks)
+            cv2.putText(frame, f'Number: {numero}', (10, 200), 
+                        cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 255), 2)
 
     cv2.imshow('Deteccion de manos', frame)
 
